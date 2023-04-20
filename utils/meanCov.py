@@ -6,6 +6,7 @@ def vex(s):
 
 def meanCov(X):
     N = X.shape[0]
+    print(f"Number of matrices: {N}")
     Mean = np.eye(4)
     Cov = np.zeros((6, 6))
 

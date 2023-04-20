@@ -21,23 +21,18 @@ def mainBatch():
                 [-0.0000, 0.7071, 0.7071, 0.7071],
                 [0.0, 0.0, 0.0, 1.0]]])
 
-    opt = False
-    nstd_A = 0
-    nstd_B = 0
+    opt = True
+    nstd_A = 0.001
+    nstd_B = 0.001
 
     # Call batchSolveXY with perturbed input data
     X, Y, MeanA, MeanB, SigA, SigB = batchSolveXY(A, B, opt, nstd_A, nstd_B)
 
     # Display results
-    print("X:")
-    for x in X:
-        print(x)
-        print()
+    print("X: ", X[:,:,0])
+    print("X: ", X.shape)
 
-    print("Y:")
-    for y in Y:
-        print(y)
-        print()
+    print("Y: ", Y[:,:,0])
 
     print("MeanA:")
     print(MeanA)
