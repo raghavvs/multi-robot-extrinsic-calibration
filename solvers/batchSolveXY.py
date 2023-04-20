@@ -47,15 +47,11 @@ def batchSolveXY(A, B, opt, nstd_A=None, nstd_B=None):
 
     for i in range(8):
         matrix = Rx_solved[:, :, i].T @ SigA[:3, :3] @ Rx_solved[:, :, i]
-        det = np.linalg.det(matrix)
-        if np.isclose(det, 0):
-            print(f"Matrix at index {i} is singular with determinant {det}")
-        else:
-            tx_temp = so3Vec((np.linalg.inv(matrix) @
-                            (SigB[:3, 3:6] - Rx_solved[:, :, i].T @ SigA[:3, 3:6] @ Rx_solved[:, :, i])).T)
-            tx = -Rx_solved[:, :, i] @ tx_temp
-            X_candidate[:, :, i] = np.block([[Rx_solved[:, :, i], tx[:, None]], [[0, 0, 0, 1]]])
-            Y_candidate[:, :, i] = MeanA @ X_candidate[:, :, i] / (MeanB)
+        tx_temp = so3Vec((matrix @
+                        (SigB[:3, 3:6] - Rx_solved[:, :, i].T @ SigA[:3, 3:6] @ Rx_solved[:, :, i])).T)
+        tx = -Rx_solved[:, :, i] @ tx_temp
+        X_candidate[:, :, i] = np.block([[Rx_solved[:, :, i], tx[:, None]], [[0, 0, 0, 1]]])
+        Y_candidate[:, :, i] = MeanA @ X_candidate[:, :, i] / (MeanB)
 
     return X_candidate, Y_candidate, MeanA, MeanB, SigA, SigB
 
