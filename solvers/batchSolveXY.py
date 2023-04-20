@@ -12,8 +12,22 @@ def batchSolveXY(A, B, opt, nstd_A=None, nstd_B=None):
         SigA = SigA - nstd_A * np.eye(6, 6)
         SigB = SigB - nstd_B * np.eye(6, 6)
 
+    print("SigA:", SigA[0:3, 0:3])
+    print("SigB:", SigB[0:3, 0:3])
+
     VA, _ = np.linalg.eig(SigA[:3, :3])
     VB, _ = np.linalg.eig(SigB[:3, :3])
+
+    # Sort eigenvalues by magnitude (ascending order)
+    VA, VB = eigenvalue_sort(VA, VB)
+
+    print("Eigenvalues of SigA[:3, :3]:")
+    print(VA)
+    print()
+
+    print("Eigenvalues of SigB[:3, :3]:")
+    print(VB)
+    print()
 
     Q1 = np.eye(3)
     Q2 = np.array([[-1, 0, 0], [0, -1, 0], [0, 0, 1]])
@@ -44,3 +58,12 @@ def batchSolveXY(A, B, opt, nstd_A=None, nstd_B=None):
             Y_candidate[:, :, i] = MeanA @ X_candidate[:, :, i] / (MeanB)
 
     return X_candidate, Y_candidate, MeanA, MeanB, SigA, SigB
+
+def eigenvalue_sort(VA, VB):
+    # Sort eigenvalues by magnitude (ascending order)
+    idx = np.argsort(VA)
+    VA = VA[idx]
+
+    idx = np.argsort(VB)
+    VB = VB[idx]
+    return VA,VB

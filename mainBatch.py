@@ -20,24 +20,13 @@ def main():
                 [0.2791, 0.6829, -0.6752, -0.4567],
                 [-0.0000, 0.7071, 0.7071, 0.7071],
                 [0.0, 0.0, 0.0, 1.0]]])
-    
-    # Add small perturbations to A and B
-    epsilon = 1e-8
-    A_perturbed = A + epsilon * np.random.randn(*A.shape)
-    B_perturbed = B + epsilon * np.random.randn(*B.shape)
-
-    print("A.shape:", A.shape)
-    print("B.shape:", B.shape)
-    print("A_perturbed.shape:", A_perturbed.shape)
-    print("B_perturbed.shape:", B_perturbed.shape)
 
     opt = False
-    nstd_A = 0.0
-    nstd_B = 0.0
+    nstd_A = 0
+    nstd_B = 0
 
     # Call batchSolveXY with perturbed input data
-    X, Y, MeanA, MeanB, SigA, SigB = batchSolveXY(A_perturbed, B_perturbed, opt, nstd_A, nstd_B)
-    #X, Y, MeanA, MeanB, SigA, SigB = batchSolveXY(A, B, opt, nstd_A, nstd_B)
+    X, Y, MeanA, MeanB, SigA, SigB = batchSolveXY(A, B, opt, nstd_A, nstd_B)
 
     # Display results
     print("X:")
