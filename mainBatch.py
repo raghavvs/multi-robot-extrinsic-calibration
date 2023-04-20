@@ -1,7 +1,7 @@
 import numpy as np
 from solvers import batchSolveXY
 
-def main():
+def mainBatch():
     # Create deterministic input matrices A and B
     A = np.array([[[0.9363, -0.2751, 0.2183, 1.2020],
                [0.2896, 0.9566, -0.0392, -0.1022],
@@ -56,4 +56,4 @@ def main():
     print()
 
 if __name__ == "__main__":
-    main()
+    mainBatch()
